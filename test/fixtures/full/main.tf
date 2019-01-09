@@ -76,8 +76,11 @@ module "project-factory" {
   lien                = "true"
 
   activate_apis = [
+    "compute.googleapis.com",
     "container.googleapis.com",
   ]
+
+  disable_services_on_destroy = "false"
 
   app_engine {
     location_id = "${var.region}"
