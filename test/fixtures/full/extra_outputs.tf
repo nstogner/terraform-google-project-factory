@@ -15,5 +15,6 @@
  */
 
 output "extra_service_account_email" {
-  value = "${google_service_account.extra_service_account.email}"
+  description = "The email address of the extra service account"
+  value       = "${google_service_account.extra_service_account.email}"
 }

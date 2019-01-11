@@ -14,53 +14,83 @@
  * limitations under the License.
  */
 
-variable "credentials_path" {}
+variable "credentials_path" {
+  description = "Path to a Service Account credentials file with permissions documented in the readme"
+}
 
-variable "org_id" {}
+variable "org_id" {
+  description = "The organization ID where test projects will be created."
+}
 
 variable "folder_id" {
-  default = ""
+  description = "The ID of a folder to host this project"
+  default     = ""
 }
 
 variable "domain" {
+  description = "The domain name"
 }
 
 variable "usage_bucket_name" {
-  default = ""
+  description = "Name of a GCS bucket to store GCE usage reports in (optional)"
+  default     = ""
 }
 
 variable "usage_bucket_prefix" {
-  default = ""
+  description = "Prefix in the GCS bucket to store GCE usage reports in (optional)"
+  default     = ""
 }
 
-variable "billing_account" {}
+variable "billing_account" {
+  description = "The ID of the billing account to associate this project with"
+}
 
 variable "group_name" {
-  default = ""
+  description = "A group to control the project by being assigned group_role (defaults to project editor)"
+  default     = ""
 }
 
 variable "create_group" {
-  default = "false"
+  description = "Whether to create the group or not"
+  default     = "false"
 }
 
 variable "group_role" {
-  default = "roles/viewer"
+  description = "The role to give the controlling group (group_name) over the project (defaults to project editor)"
+  default     = "roles/viewer"
 }
 
 variable "shared_vpc" {
+  description = <<EOD
+The Shared VPC host project. An additional network and subnet will be provisioned within
+this project. The provided project must already be configured as a shared VPC host.
+
+Example:
+
+```
+org_id=$(gcloud organizations list --format='get(name)')
+gcloud compute shared-vpc organizations list-host-projects $org_id
+```
+EOD
+
   default = ""
 }
 
 variable "sa_role" {
-  default = "roles/editor"
+  description = "A role to give the default Service Account for the project (defaults to none)"
+  default     = "roles/editor"
 }
 
 variable "sa_group" {
-  default = ""
+  description = "A GSuite group to place the default Service Account for the project in"
+  default     = ""
 }
 
 variable "region" {
-  default = "us-east4"
+  description = "The region where the `full` test fixture will deploy the Google App Engine instance"
+  default     = "us-east4"
 }
 
-variable "gsuite_admin_account" {}
+variable "gsuite_admin_account" {
+  description = "The G Suite admin account to impersonate when managing G Suite groups and group membership"
+}
